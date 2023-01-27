@@ -11,7 +11,7 @@ dotenv.config()
  * Demo CLI for testing basic functionality.
  *
  * ```
- * npx tsx demos/demo.ts
+ * npx tsx demos/demo-express.ts
  * ```
  */
 class requestData
@@ -35,7 +35,7 @@ class App {
     router.post('/openai',  async (req , res) => {     
       try{   
         console.log(req.body.prompt)
-       const result = await this.callOpenAI(req.body.prompt)
+       const result = await this.callOpenAI(req.body.prompt,req.body.messageId,req.body.conversationId)
        res.send(result)
       }
       catch(err)
@@ -61,7 +61,7 @@ public async initOpenAI() {
   await this.api.initSession()  
 }
 
-public async  callOpenAI(prompt: string) : Promise<any>
+public async  callOpenAI(prompt: string,messageId: string, conversationId: string) : Promise<any>
 {
   const prompt1 =
   'Write a python version of bubble sort. Do not include example usage.'
@@ -69,10 +69,27 @@ public async  callOpenAI(prompt: string) : Promise<any>
   const prompt2 =
   'How are you today.'
 
+  console.log("mid:"+messageId)
+  console.log("cid:"+conversationId)
+
+if(messageId=="" || conversationId == "")
+{
 const res = await oraPromise(this.api.sendMessage(prompt), {
   text: prompt
 })
 return res;
+}
+else
+{
+  const res = await oraPromise(this.api.sendMessage(prompt,{
+    conversationId: conversationId,
+    parentMessageId: messageId
+  }),{
+    text: prompt
+  })
+  return res;
+
+}
 }
 
 public async closeOpenAI()
