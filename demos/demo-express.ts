@@ -1,9 +1,7 @@
 import dotenv from 'dotenv-safe'
 import { oraPromise } from 'ora'
-import { ChatGPTAPIBrowser } from '../src'
+import { ChatGPTAPI} from '../src'
 import express from 'express'
-import { appendFile } from 'fs'
-import { stringify } from 'querystring'
 
 dotenv.config()
 
@@ -48,26 +46,11 @@ class App {
   }
 
 public async initOpenAI() {
-  const email = process.env.OPENAI_EMAIL
-  const password = process.env.OPENAI_PASSWORD
-
-  if (email!=undefined && password!=undefined)
-  this.api = new ChatGPTAPIBrowser({
-    email,
-    password,
-    debug: false,
-    minimize: true
-  })
-  await this.api.initSession()  
+  this.api = new ChatGPTAPI({ apiKey: process.env.OPENAI_API_KEY })
 }
 
 public async  callOpenAI(prompt: string,messageId: string, conversationId: string) : Promise<any>
 {
-  const prompt1 =
-  'Write a python version of bubble sort. Do not include example usage.'
-
-  const prompt2 =
-  'How are you today.'
 
   console.log("mid:"+messageId)
   console.log("cid:"+conversationId)
