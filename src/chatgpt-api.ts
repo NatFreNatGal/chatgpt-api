@@ -9,7 +9,8 @@ import { fetch } from './fetch'
 import { fetchSSE } from './fetch-sse'
 
 // NOTE: this is not a public model, but it was leaked by the ChatGPT webapp.
-const CHATGPT_MODEL = 'text-chat-davinci-002-20230126'
+// const CHATGPT_MODEL = 'text-chat-davinci-002-20230126'
+const CHATGPT_MODEL = 'text-chat-davinci-002-20221122'
 
 const USER_LABEL_DEFAULT = 'User'
 const ASSISTANT_LABEL_DEFAULT = 'ChatGPT'
@@ -19,7 +20,7 @@ export class ChatGPTAPI {
   protected _apiBaseUrl: string
   protected _debug: boolean
 
-  protected _completionParams: types.openai.CompletionParams
+  protected _completionParams: Omit<types.openai.CompletionParams, 'prompt'>
   protected _maxModelTokens: number
   protected _maxResponseTokens: number
   protected _userLabel: string
@@ -53,7 +54,7 @@ export class ChatGPTAPI {
     /** @defaultValue `false` **/
     debug?: boolean
 
-    completionParams?: types.openai.CompletionParams
+    completionParams?: Partial<types.openai.CompletionParams>
 
     /** @defaultValue `4096` **/
     maxModelTokens?: number

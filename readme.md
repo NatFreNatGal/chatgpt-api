@@ -262,6 +262,7 @@ All of these awesome projects are built using the `chatgpt` package. 🤯
 - [iOS Shortcut](https://github.com/leecobaby/shortcuts/blob/master/other/ChatGPT_EN.md)
 - [Slack Bot #1](https://github.com/trietphm/chatgpt-slackbot/)
 - [Slack Bot #2](https://github.com/lokwkin/chatgpt-slackbot-node/) (with queueing mechanism)
+- [Slack Bot #3](https://github.com/NessunKim/slack-chatgpt/)
 - [Electron Bot](https://github.com/ShiranAbir/chaty)
 - [Kodyfire CLI](https://github.com/nooqta/chatgpt-kodyfire)
 - [Twitch Bot](https://github.com/BennyDeeDev/chatgpt-twitch-bot)
@@ -271,6 +272,8 @@ All of these awesome projects are built using the `chatgpt` package. 🤯
 - [NestJS ChatGPT Starter Boilerplate](https://github.com/mitkodkn/nestjs-chatgpt-starter)
 - [Wordsmith: Add-in for Microsoft Word](https://github.com/xtremehpx/Wordsmith)
 - [QuizGPT: Create Kahoot quizzes with ChatGPT](https://github.com/Kladdy/quizgpt)
+- [openai-chatgpt: Talk to ChatGPT from the terminal](https://github.com/gmpetrov/openai-chatgpt)
+- [Clippy the Saleforce chatbot](https://github.com/sebas00/chatgptclippy) ClippyJS joke bot
 
 If you create a cool integration, feel free to open a PR and add it to the list.
 
