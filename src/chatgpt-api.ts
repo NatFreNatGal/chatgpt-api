@@ -10,7 +10,8 @@ import { fetchSSE } from './fetch-sse'
 
 // NOTE: this is not a public model, but it was leaked by the ChatGPT webapp.
 // const CHATGPT_MODEL = 'text-chat-davinci-002-20230126'
-const CHATGPT_MODEL = 'text-chat-davinci-002-20221122'
+// const CHATGPT_MODEL = 'text-chat-davinci-002-20221122'
+const CHATGPT_MODEL = 'text-davinci-003'
 
 const USER_LABEL_DEFAULT = 'User'
 const ASSISTANT_LABEL_DEFAULT = 'ChatGPT'
@@ -229,7 +230,7 @@ export class ChatGPTAPI {
                 return reject(err)
               }
             }
-          })
+          }).catch(reject)
         } else {
           try {
             const res = await fetch(url, {
@@ -307,7 +308,7 @@ Current date: ${currentDate}\n\n`
 
     const maxNumTokens = this._maxModelTokens - this._maxResponseTokens
     let { parentMessageId } = opts
-    let nextPromptBody = `${this._userLabel}:\n\n${message}<|im_end|>`
+    let nextPromptBody = `${this._userLabel}:\n\n${message}${this._completionParams.stop[0]}`
     let promptBody = ''
     let prompt: string
     let numTokens: number
@@ -343,7 +344,7 @@ Current date: ${currentDate}\n\n`
         parentMessageRole === 'user' ? this._userLabel : this._assistantLabel
 
       // TODO: differentiate between assistant and user messages
-      const parentMessageString = `${parentMessageRoleDesc}:\n\n${parentMessage.text}<|im_end|>\n\n`
+      const parentMessageString = `${parentMessageRoleDesc}:\n\n${parentMessage.text}${this._completionParams.stop[0]}\n\n`
       nextPromptBody = `${parentMessageString}${promptBody}`
       parentMessageId = parentMessage.parentMessageId
     } while (true)

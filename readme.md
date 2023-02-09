@@ -212,6 +212,7 @@ All of these awesome projects are built using the `chatgpt` package. 🤯
 - [Twitter Bot](https://github.com/transitive-bullshit/chatgpt-twitter-bot) powered by ChatGPT ✨
   - Mention [@ChatGPTBot](https://twitter.com/ChatGPTBot) on Twitter with your prompt to try it out
 - [ChatGPT API Server](https://github.com/waylaidwanderer/node-chatgpt-api) - API server for this package with support for multiple OpenAI accounts, proxies, and load-balancing requests between accounts.
+- [ChatGPT Prompts](https://github.com/pacholoamit/chatgpt-prompts) - A collection of 140+ of the best ChatGPT prompts from the community.
 - [Lovelines.xyz](https://lovelines.xyz?ref=chatgpt-api)
 - [Chrome Extension](https://github.com/gragland/chatgpt-everywhere) ([demo](https://twitter.com/gabe_ragland/status/1599466486422470656))
 - [VSCode Extension #1](https://github.com/mpociot/chatgpt-vscode) ([demo](https://twitter.com/marcelpociot/status/1599180144551526400), [updated version](https://github.com/timkmecl/chatgpt-vscode), [marketplace](https://marketplace.visualstudio.com/items?itemName=timkmecl.chatgpt))
@@ -263,6 +264,7 @@ All of these awesome projects are built using the `chatgpt` package. 🤯
 - [Slack Bot #1](https://github.com/trietphm/chatgpt-slackbot/)
 - [Slack Bot #2](https://github.com/lokwkin/chatgpt-slackbot-node/) (with queueing mechanism)
 - [Slack Bot #3](https://github.com/NessunKim/slack-chatgpt/)
+- [Slack Bot #4](https://github.com/MarkusGalant/chatgpt-slackbot-serverless/) ( Serverless AWS Lambda )
 - [Electron Bot](https://github.com/ShiranAbir/chaty)
 - [Kodyfire CLI](https://github.com/nooqta/chatgpt-kodyfire)
 - [Twitch Bot](https://github.com/BennyDeeDev/chatgpt-twitch-bot)
@@ -283,7 +285,7 @@ If you create a cool integration, feel free to open a PR and add it to the list.
 - This package supports `node >= 14`.
 - This module assumes that `fetch` is installed.
   - In `node >= 18`, it's installed by default.
-  - In `node < 18`, you need to install a polyfill like `unfetch/polyfill` ([guide](https://github.com/developit/unfetch#usage-as-a-polyfill))
+  - In `node < 18`, you need to install a polyfill like `unfetch/polyfill` ([guide](https://github.com/developit/unfetch#usage-as-a-polyfill)) or `isomorphic-fetch` ([guide](https://github.com/matthew-andrews/isomorphic-fetch#readme)). 
 - If you want to build a website using `chatgpt`, we recommend using it only from your backend API
 
 ## Credits
