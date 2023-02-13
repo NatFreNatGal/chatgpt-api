@@ -100,7 +100,7 @@ const httpTrigger: AzureFunction = async function (
   } catch (err) {
     console.log(err)
     context.res = {
-      body: 'Failed'
+      body: err.statusCode + ' ' + err.statusText
     }
   }
 }
