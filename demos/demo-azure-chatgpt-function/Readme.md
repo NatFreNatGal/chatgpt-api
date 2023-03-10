@@ -1,11 +1,15 @@
-## Please set two environments variables:
+This is Azure funciton to call Azure OpenAI ChatGPT service through a scoped package  **@freistli/azurechagptapi** , related Azure OpenAI ChatGPT wrapper code is [in ../src/](https://github.com/freistli/chatgpt-api/blob/main/src/azure-chatgpt-api.ts)
 
-AZURE_OPENAI_API_KEY 
+To use it:
 
-AZURE_OPENAI_API_BASE 
+1. Please set two environments variables:
 
-## Intstall packages:
+    AZURE_OPENAI_API_KEY 
 
-npm install 
+    AZURE_OPENAI_API_BASE 
 
-##Deploy the Turbo model with "chatgpt" deployment name in Azure OpenAI service.
+2. Intstall packages:
+
+    npm install 
+
+3. Deploy the Turbo model with "chatgpt" deployment name in Azure OpenAI service.
