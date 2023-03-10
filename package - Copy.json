@@ -1,12 +1,9 @@
 {
-  "name": "@freistli/azurechagptapi",
-  "version": "0.0.1",
-  "description": "Azure ChatGPT Wrapper Demo based on Travis Fischer <travis@transitivebullsh.it> 's work on ChatGPTAPI",
-  "author": "fauna179@hotmail.com",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/freistli/chatgpt-api.git"
-  },
+  "name": "chatgpt",
+  "version": "5.0.9",
+  "description": "Node.js client for the official ChatGPT API.",
+  "author": "Travis Fischer <travis@transitivebullsh.it>",
+  "repository": "transitive-bullshit/chatgpt-api",
   "license": "MIT",
   "type": "module",
   "source": "./src/index.ts",
@@ -22,9 +19,7 @@
     "build",
     "bin"
   ],
-  "bin": {
-    "chatgpt": "bin/cli.js"
-  },
+  "bin": "./bin/cli.js",
   "engines": {
     "node": ">=14"
   },
@@ -90,13 +85,5 @@
     "ai",
     "ml",
     "bot"
-  ],
-  "bugs": {
-    "url": "https://github.com/freistli/chatgpt-api.git"
-  },
-  "homepage": "https://github.com/freistli/chatgpt-api.git",
-  "main": "index.js",
-  "directories": {
-    "doc": "docs"
-  }
+  ]
 }
