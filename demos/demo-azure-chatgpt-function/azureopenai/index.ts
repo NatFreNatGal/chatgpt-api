@@ -3,7 +3,7 @@ import { AzureChatGPTAPI } from '@freistli/azurechagptapi'
 import dotenv from 'dotenv-safe'
 import { oraPromise } from 'ora'
 
-dotenv.config()
+//dotenv.config()
 
 class MyOpenAI {
   static current: MyOpenAI
