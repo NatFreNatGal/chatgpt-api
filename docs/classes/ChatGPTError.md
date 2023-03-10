@@ -16,6 +16,8 @@
 
 ### Properties
 
+- [accountId](ChatGPTError.md#accountid)
+- [isFinal](ChatGPTError.md#isfinal)
 - [statusCode](ChatGPTError.md#statuscode)
 - [statusText](ChatGPTError.md#statustext)
 
@@ -58,13 +60,33 @@ node_modules/.pnpm/typescript@4.9.5/node_modules/typescript/lib/lib.es2022.error
 
 ## Properties
 
+### accountId
+
+• `Optional` **accountId**: `string`
+
+#### Defined in
+
+[src/types.ts:77](https://github.com/transitive-bullshit/chatgpt-api/blob/48cb944/src/types.ts#L77)
+
+___
+
+### isFinal
+
+• `Optional` **isFinal**: `boolean`
+
+#### Defined in
+
+[src/types.ts:76](https://github.com/transitive-bullshit/chatgpt-api/blob/48cb944/src/types.ts#L76)
+
+___
+
 ### statusCode
 
 • `Optional` **statusCode**: `number`
 
 #### Defined in
 
-[src/types.ts:24](https://github.com/transitive-bullshit/chatgpt-api/blob/aefae23/src/types.ts#L24)
+[src/types.ts:74](https://github.com/transitive-bullshit/chatgpt-api/blob/48cb944/src/types.ts#L74)
 
 ___
 
@@ -74,4 +96,4 @@ ___
 
 #### Defined in
 
-[src/types.ts:25](https://github.com/transitive-bullshit/chatgpt-api/blob/aefae23/src/types.ts#L25)
+[src/types.ts:75](https://github.com/transitive-bullshit/chatgpt-api/blob/48cb944/src/types.ts#L75)

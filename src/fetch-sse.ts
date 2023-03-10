@@ -1,17 +1,26 @@
 import { createParser } from 'eventsource-parser'
 
 import * as types from './types'
-import { fetch } from './fetch'
+import { fetch as globalFetch } from './fetch'
 import { streamAsyncIterable } from './stream-async-iterable'
 
 export async function fetchSSE(
   url: string,
-  options: Parameters<typeof fetch>[1] & { onMessage: (data: string) => void }
+  options: Parameters<typeof fetch>[1] & { onMessage: (data: string) => void },
+  fetch: types.FetchFn = globalFetch
 ) {
   const { onMessage, ...fetchOptions } = options
   const res = await fetch(url, fetchOptions)
   if (!res.ok) {
-    const msg = `ChatGPT error ${res.status || res.statusText}`
+    let reason: string
+
+    try {
+      reason = await res.text()
+    } catch (err) {
+      reason = res.statusText
+    }
+
+    const msg = `ChatGPT error ${res.status}: ${reason}`
     const error = new types.ChatGPTError(msg, { cause: res })
     error.statusCode = res.status
     error.statusText = res.statusText

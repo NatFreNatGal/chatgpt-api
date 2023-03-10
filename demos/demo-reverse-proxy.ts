@@ -1,20 +1,27 @@
 import dotenv from 'dotenv-safe'
 import { oraPromise } from 'ora'
 
-import { ChatGPTAPI } from '../src'
+import { ChatGPTUnofficialProxyAPI } from '../src'
 
 dotenv.config()
 
 /**
- * Demo CLI for testing conversation support.
+ * Demo for testing conversation support using a reverse proxy which provides
+ * access to the unofficial ChatGPT API.
  *
  * ```
- * npx tsx demos/demo-conversation.ts
+ * npx tsx demos/demo-reverse-proxy.ts
  * ```
  */
 async function main() {
-  const api = new ChatGPTAPI({
-    apiKey: process.env.OPENAI_API_KEY,
+  // WARNING: this method will expose your access token to a third-party. Please be
+  // aware of the risks before using this method.
+  const api = new ChatGPTUnofficialProxyAPI({
+    // optionally override the default reverse proxy URL (or use one of your own...)
+    // apiReverseProxyUrl: 'https://chat.duti.tech/api/conversation',
+    // apiReverseProxyUrl: 'https://gpt.pawan.krd/backend-api/conversation',
+
+    accessToken: process.env.OPENAI_ACCESS_TOKEN,
     debug: false
   })
 
@@ -30,6 +37,7 @@ async function main() {
 
   res = await oraPromise(
     api.sendMessage(prompt2, {
+      conversationId: res.conversationId,
       parentMessageId: res.id
     }),
     {
@@ -42,6 +50,7 @@ async function main() {
 
   res = await oraPromise(
     api.sendMessage(prompt3, {
+      conversationId: res.conversationId,
       parentMessageId: res.id
     }),
     {
@@ -54,6 +63,7 @@ async function main() {
 
   res = await oraPromise(
     api.sendMessage(prompt4, {
+      conversationId: res.conversationId,
       parentMessageId: res.id
     }),
     {

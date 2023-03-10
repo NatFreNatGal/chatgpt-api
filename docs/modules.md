@@ -12,6 +12,7 @@
 
 - [ChatGPTAPI](classes/ChatGPTAPI.md)
 - [ChatGPTError](classes/ChatGPTError.md)
+- [ChatGPTUnofficialProxyAPI](classes/ChatGPTUnofficialProxyAPI.md)
 
 ### Interfaces
 
@@ -19,12 +20,110 @@
 
 ### Type Aliases
 
+- [ChatGPTAPIOptions](modules.md#chatgptapioptions)
+- [ContentType](modules.md#contenttype)
+- [ConversationJSONBody](modules.md#conversationjsonbody)
+- [ConversationResponseEvent](modules.md#conversationresponseevent)
+- [FetchFn](modules.md#fetchfn)
 - [GetMessageByIdFunction](modules.md#getmessagebyidfunction)
+- [Message](modules.md#message)
+- [MessageActionType](modules.md#messageactiontype)
+- [MessageContent](modules.md#messagecontent)
+- [MessageMetadata](modules.md#messagemetadata)
+- [Prompt](modules.md#prompt)
+- [PromptContent](modules.md#promptcontent)
 - [Role](modules.md#role)
+- [SendMessageBrowserOptions](modules.md#sendmessagebrowseroptions)
 - [SendMessageOptions](modules.md#sendmessageoptions)
 - [UpsertMessageFunction](modules.md#upsertmessagefunction)
 
 ## Type Aliases
+
+### ChatGPTAPIOptions
+
+Ƭ **ChatGPTAPIOptions**: `Object`
+
+#### Type declaration
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `apiBaseUrl?` | `string` | **`Default Value`** `'https://api.openai.com'` * |
+| `apiKey` | `string` | - |
+| `completionParams?` | `Partial`<`Omit`<[`CreateChatCompletionRequest`](interfaces/openai.CreateChatCompletionRequest.md), ``"messages"`` \| ``"n"``\>\> | - |
+| `debug?` | `boolean` | **`Default Value`** `false` * |
+| `fetch?` | [`FetchFn`](modules.md#fetchfn) | - |
+| `getMessageById?` | [`GetMessageByIdFunction`](modules.md#getmessagebyidfunction) | - |
+| `maxModelTokens?` | `number` | **`Default Value`** `4096` * |
+| `maxResponseTokens?` | `number` | **`Default Value`** `1000` * |
+| `messageStore?` | `Keyv` | - |
+| `systemMessage?` | `string` | - |
+| `upsertMessage?` | [`UpsertMessageFunction`](modules.md#upsertmessagefunction) | - |
+
+#### Defined in
+
+[src/types.ts:7](https://github.com/transitive-bullshit/chatgpt-api/blob/48cb944/src/types.ts#L7)
+
+___
+
+### ContentType
+
+Ƭ **ContentType**: ``"text"``
+
+#### Defined in
+
+[src/types.ts:133](https://github.com/transitive-bullshit/chatgpt-api/blob/48cb944/src/types.ts#L133)
+
+___
+
+### ConversationJSONBody
+
+Ƭ **ConversationJSONBody**: `Object`
+
+https://chat.openapi.com/backend-api/conversation
+
+#### Type declaration
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `action` | `string` | The action to take |
+| `conversation_id?` | `string` | The ID of the conversation |
+| `messages` | [`Prompt`](modules.md#prompt)[] | Prompts to provide |
+| `model` | `string` | The model to use |
+| `parent_message_id` | `string` | The parent message ID |
+
+#### Defined in
+
+[src/types.ts:89](https://github.com/transitive-bullshit/chatgpt-api/blob/48cb944/src/types.ts#L89)
+
+___
+
+### ConversationResponseEvent
+
+Ƭ **ConversationResponseEvent**: `Object`
+
+#### Type declaration
+
+| Name | Type |
+| :------ | :------ |
+| `conversation_id?` | `string` |
+| `error?` | `string` \| ``null`` |
+| `message?` | [`Message`](modules.md#message) |
+
+#### Defined in
+
+[src/types.ts:147](https://github.com/transitive-bullshit/chatgpt-api/blob/48cb944/src/types.ts#L147)
+
+___
+
+### FetchFn
+
+Ƭ **FetchFn**: typeof `fetch`
+
+#### Defined in
+
+[src/types.ts:5](https://github.com/transitive-bullshit/chatgpt-api/blob/48cb944/src/types.ts#L5)
+
+___
 
 ### GetMessageByIdFunction
 
@@ -48,17 +147,136 @@ Returns a chat message from a store by it's ID (or null if not found).
 
 #### Defined in
 
-[src/types.ts:29](https://github.com/transitive-bullshit/chatgpt-api/blob/aefae23/src/types.ts#L29)
+[src/types.ts:81](https://github.com/transitive-bullshit/chatgpt-api/blob/48cb944/src/types.ts#L81)
+
+___
+
+### Message
+
+Ƭ **Message**: `Object`
+
+#### Type declaration
+
+| Name | Type |
+| :------ | :------ |
+| `content` | [`MessageContent`](modules.md#messagecontent) |
+| `create_time` | `string` \| ``null`` |
+| `end_turn` | ``null`` |
+| `id` | `string` |
+| `metadata` | [`MessageMetadata`](modules.md#messagemetadata) |
+| `recipient` | `string` |
+| `role` | [`Role`](modules.md#role) |
+| `update_time` | `string` \| ``null`` |
+| `user` | `string` \| ``null`` |
+| `weight` | `number` |
+
+#### Defined in
+
+[src/types.ts:153](https://github.com/transitive-bullshit/chatgpt-api/blob/48cb944/src/types.ts#L153)
+
+___
+
+### MessageActionType
+
+Ƭ **MessageActionType**: ``"next"`` \| ``"variant"``
+
+#### Defined in
+
+[src/types.ts:47](https://github.com/transitive-bullshit/chatgpt-api/blob/48cb944/src/types.ts#L47)
+
+___
+
+### MessageContent
+
+Ƭ **MessageContent**: `Object`
+
+#### Type declaration
+
+| Name | Type |
+| :------ | :------ |
+| `content_type` | `string` |
+| `parts` | `string`[] |
+
+#### Defined in
+
+[src/types.ts:166](https://github.com/transitive-bullshit/chatgpt-api/blob/48cb944/src/types.ts#L166)
+
+___
+
+### MessageMetadata
+
+Ƭ **MessageMetadata**: `any`
+
+#### Defined in
+
+[src/types.ts:171](https://github.com/transitive-bullshit/chatgpt-api/blob/48cb944/src/types.ts#L171)
+
+___
+
+### Prompt
+
+Ƭ **Prompt**: `Object`
+
+#### Type declaration
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `content` | [`PromptContent`](modules.md#promptcontent) | The content of the prompt |
+| `id` | `string` | The ID of the prompt |
+| `role` | [`Role`](modules.md#role) | The role played in the prompt |
+
+#### Defined in
+
+[src/types.ts:116](https://github.com/transitive-bullshit/chatgpt-api/blob/48cb944/src/types.ts#L116)
+
+___
+
+### PromptContent
+
+Ƭ **PromptContent**: `Object`
+
+#### Type declaration
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `content_type` | [`ContentType`](modules.md#contenttype) | The content type of the prompt |
+| `parts` | `string`[] | The parts to the prompt |
+
+#### Defined in
+
+[src/types.ts:135](https://github.com/transitive-bullshit/chatgpt-api/blob/48cb944/src/types.ts#L135)
 
 ___
 
 ### Role
 
-Ƭ **Role**: ``"user"`` \| ``"assistant"``
+Ƭ **Role**: ``"user"`` \| ``"assistant"`` \| ``"system"``
 
 #### Defined in
 
-[src/types.ts:1](https://github.com/transitive-bullshit/chatgpt-api/blob/aefae23/src/types.ts#L1)
+[src/types.ts:3](https://github.com/transitive-bullshit/chatgpt-api/blob/48cb944/src/types.ts#L3)
+
+___
+
+### SendMessageBrowserOptions
+
+Ƭ **SendMessageBrowserOptions**: `Object`
+
+#### Type declaration
+
+| Name | Type |
+| :------ | :------ |
+| `abortSignal?` | `AbortSignal` |
+| `action?` | [`MessageActionType`](modules.md#messageactiontype) |
+| `conversationId?` | `string` |
+| `messageId?` | `string` |
+| `onProgress?` | (`partialResponse`: [`ChatMessage`](interfaces/ChatMessage.md)) => `void` |
+| `parentMessageId?` | `string` |
+| `timeoutMs?` | `number` |
+
+#### Defined in
+
+[src/types.ts:49](https://github.com/transitive-bullshit/chatgpt-api/blob/48cb944/src/types.ts#L49)
 
 ___
 
@@ -68,21 +286,20 @@ ___
 
 #### Type declaration
 
-| Name | Type |
-| :------ | :------ |
-| `abortSignal?` | `AbortSignal` |
-| `conversationId?` | `string` |
-| `messageId?` | `string` |
-| `onProgress?` | (`partialResponse`: [`ChatMessage`](interfaces/ChatMessage.md)) => `void` |
-| `parentMessageId?` | `string` |
-| `promptPrefix?` | `string` |
-| `promptSuffix?` | `string` |
-| `stream?` | `boolean` |
-| `timeoutMs?` | `number` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `abortSignal?` | `AbortSignal` | - |
+| `messageId?` | `string` | - |
+| `name?` | `string` | The name of a user in a multi-user chat. |
+| `onProgress?` | (`partialResponse`: [`ChatMessage`](interfaces/ChatMessage.md)) => `void` | - |
+| `parentMessageId?` | `string` | - |
+| `stream?` | `boolean` | - |
+| `systemMessage?` | `string` | - |
+| `timeoutMs?` | `number` | - |
 
 #### Defined in
 
-[src/types.ts:3](https://github.com/transitive-bullshit/chatgpt-api/blob/aefae23/src/types.ts#L3)
+[src/types.ts:35](https://github.com/transitive-bullshit/chatgpt-api/blob/48cb944/src/types.ts#L35)
 
 ___
 
@@ -108,4 +325,4 @@ Upserts a chat message to a store.
 
 #### Defined in
 
-[src/types.ts:32](https://github.com/transitive-bullshit/chatgpt-api/blob/aefae23/src/types.ts#L32)
+[src/types.ts:84](https://github.com/transitive-bullshit/chatgpt-api/blob/48cb944/src/types.ts#L84)
