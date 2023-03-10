@@ -71,6 +71,7 @@ export class AzureChatGPTAPI {
       temperature: 0.8,
       top_p: 1.0,
       presence_penalty: 1.0,
+      stop: ['<|im_end|>'],
       ...completionParams
     }
 

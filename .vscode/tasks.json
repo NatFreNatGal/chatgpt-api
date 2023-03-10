@@ -9,7 +9,7 @@
 			"isBackground": true,
 			"dependsOn": "npm build (functions)",
 			"options": {
-				"cwd": "${workspaceFolder}/demos\\demo-azurefunction"
+				"cwd": "${workspaceFolder}/demos\\demo-azure-chatgpt-function"
 			}
 		},
 		{
@@ -19,7 +19,7 @@
 			"dependsOn": "npm install (functions)",
 			"problemMatcher": "$tsc",
 			"options": {
-				"cwd": "${workspaceFolder}/demos\\demo-azurefunction"
+				"cwd": "${workspaceFolder}/demos\\demo-azure-chatgpt-function"
 			}
 		},
 		{
@@ -27,7 +27,7 @@
 			"label": "npm install (functions)",
 			"command": "npm install",
 			"options": {
-				"cwd": "${workspaceFolder}/demos\\demo-azurefunction"
+				"cwd": "${workspaceFolder}/demos\\demo-azure-chatgpt-function"
 			}
 		},
 		{
@@ -37,7 +37,7 @@
 			"dependsOn": "npm build (functions)",
 			"problemMatcher": [],
 			"options": {
-				"cwd": "${workspaceFolder}/demos\\demo-azurefunction"
+				"cwd": "${workspaceFolder}/demos\\demo-azure-chatgpt-function"
 			}
 		}
 	]

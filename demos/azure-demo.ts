@@ -9,7 +9,7 @@ dotenv.config()
  * Demo CLI for testing basic functionality.
  *
  * ```
- * npx tsx demos/demo.ts
+ * npx tsx demos/azure-demo.ts
  * ```
  */
 async function main() {
@@ -19,8 +19,7 @@ async function main() {
     debug: false
   })
 
-  const prompt =
-    'Write a python version of bubble sort. Do not include example usage.'
+  const prompt = 'can you understand "this" pointer'
 
   const res = await oraPromise(api.sendMessage(prompt), {
     text: prompt

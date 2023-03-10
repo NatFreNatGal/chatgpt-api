@@ -39,25 +39,29 @@ class MyOpenAI {
   public async callOpenAI(prompt: string, messageId: string): Promise<any> {
     console.log('mid:' + messageId)
 
-    if (messageId == '') {
-      const res = await oraPromise(this.api.sendMessage(prompt), {
-        text: prompt
-      })
-      return res
-    } else {
-      const res = await oraPromise(
-        this.api.sendMessage(prompt, {
-          parentMessageId: messageId
-        }),
-        {
+    try {
+      if (messageId == '') {
+        const res = await oraPromise(this.api.sendMessage(prompt), {
           text: prompt
-        }
-      )
-      return res
+        })
+        return res
+      } else {
+        const res = await oraPromise(
+          this.api.sendMessage(prompt, {
+            parentMessageId: messageId
+          }),
+          {
+            text: prompt
+          }
+        )
+        return res
+      }
+    } catch (e: any) {
+      console.log('Failed to handle: ' + prompt)
+      return 'Cannot handle this prompt for the moment, please try again'
     }
   }
 }
-
 const httpTrigger: AzureFunction = async function (
   context: Context,
   req: HttpRequest
@@ -66,14 +70,25 @@ const httpTrigger: AzureFunction = async function (
   const name = req.query.name || (req.body && req.body.name)
 
   try {
-    console.log(req.body.prompt)
-    const result = await MyOpenAI.Instance()?.callOpenAI(
-      req.body.prompt,
-      req.body.messageId
-    )
-    context.res = {
-      // status: 200, /* Defaults to 200 */
-      body: result
+    console.log(req.body)
+
+    if (req.body.prompt == undefined || req.body.prompt == '') {
+      context.res = {
+        // status: 200, /* Defaults to 200 */
+        body: 'Prompt contains invalid characters, please try again'
+      }
+    } else {
+      const result = await MyOpenAI.Instance()?.callOpenAI(
+        req.body.prompt,
+        req.body.messageId
+      )
+
+      console.log(req.body)
+
+      context.res = {
+        // status: 200, /* Defaults to 200 */
+        body: result
+      }
     }
   } catch (err) {
     console.log(err)
