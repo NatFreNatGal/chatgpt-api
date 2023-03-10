@@ -18,7 +18,6 @@
     "chatgpt": "^4.7.2",
     "chatgpt-prompts": "^2.0.1",
     "eventsource-parser": "^0.0.5",
-    "express": "^4.18.2",
     "gpt-3-encoder": "^1.1.4",
     "keyv": "^4.5.2",
     "ora": "^6.1.2",
