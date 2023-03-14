@@ -32,11 +32,13 @@ export class AzureChatGPTAPI {
 
   protected _messageStore: Keyv<types.ChatMessage>
 
+  protected _deployModel: string
+
   /**
-   * Creates a new client wrapper around OpenAI's chat completion API, mimicing the official ChatGPT webapp's functionality as closely as possible.
+   * Creates a new client wrapper around Azure OpenAI's chat completion API, mimicing the official ChatGPT webapp's functionality as closely as possible.
    *
-   * @param apiKey - OpenAI API key (required).
-   * @param apiBaseUrl - Optional override for the OpenAI API base URL.
+   * @param apiKey - Azure OpenAI API key (required).
+   * @param apiBaseUrl - Azure OpenAI API base URL (required).
    * @param debug - Optional enables logging debugging info to stdout.
    * @param completionParams - Param overrides to send to the [OpenAI chat completion API](https://platform.openai.com/docs/api-reference/chat/create). Options like `temperature` and `presence_penalty` can be tweaked to change the personality of the assistant.
    * @param maxModelTokens - Optional override for the maximum number of tokens allowed by the model's context. Defaults to 4096.
@@ -45,11 +47,12 @@ export class AzureChatGPTAPI {
    * @param getMessageById - Optional function to retrieve a message by its ID. If not provided, the default implementation will be used (using an in-memory `messageStore`).
    * @param upsertMessage - Optional function to insert or update a message. If not provided, the default implementation will be used (using an in-memory `messageStore`).
    * @param fetch - Optional override for the `fetch` implementation to use. Defaults to the global `fetch` function.
+   * @param deployModel - required for Azure Open AI
    */
-  constructor(opts: types.ChatGPTAPIOptions) {
+  constructor(opts: types.ChatGPTAPIOptions, deployModel: string) {
     const {
       apiKey,
-      apiBaseUrl = 'https://api.openai.com',
+      apiBaseUrl,
       debug = false,
       messageStore,
       completionParams,
@@ -65,6 +68,7 @@ export class AzureChatGPTAPI {
     this._apiBaseUrl = apiBaseUrl
     this._debug = !!debug
     this._fetch = fetch
+    this._deployModel = deployModel
 
     this._completionParams = {
       model: CHATGPT_MODEL,
@@ -171,7 +175,7 @@ export class AzureChatGPTAPI {
 
     const responseP = new Promise<types.ChatMessage>(
       async (resolve, reject) => {
-        const url = `${this._apiBaseUrl}openai/deployments/${CHATGPT_MODEL}/completions?api-version=2022-12-01`
+        const url = `${this._apiBaseUrl}openai/deployments/${this._deployModel}/completions?api-version=2022-12-01`
 
         console.log(`\r\n ${url}`)
 
@@ -437,7 +441,7 @@ export class AzureChatGPTAPI {
 
   protected async _getTokenCount(text: string) {
     // TODO: use a better fix in the tokenizer
-    text = text.replace(/<\|endoftext\|>/g, '')
+    text = text.replace(/<|im_end|>/g, '')
 
     return tokenizer.encode(text).length
   }

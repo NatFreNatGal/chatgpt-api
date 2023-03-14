@@ -1,5 +1,5 @@
 import { AzureFunction, Context, HttpRequest } from '@azure/functions'
-import { AzureChatGPTAPI } from '@freistli/azurechagptapi'
+import { AzureChatGPTAPI } from '@freistli/azurechatgptapi'
 import dotenv from 'dotenv-safe'
 import { oraPromise } from 'ora'
 
@@ -29,11 +29,14 @@ class MyOpenAI {
   }
 
   public async initOpenAI() {
-    this.api = new AzureChatGPTAPI({
-      apiKey: process.env.AZURE_OPENAI_API_KEY,
-      apiBaseUrl: process.env.AZURE_OPENAI_API_BASE,
-      debug: false
-    })
+    this.api = new AzureChatGPTAPI(
+      {
+        apiKey: process.env.AZURE_OPENAI_API_KEY,
+        apiBaseUrl: process.env.AZURE_OPENAI_API_BASE,
+        debug: false
+      },
+      'chatgpt'
+    )
   }
 
   public async callOpenAI(prompt: string, messageId: string): Promise<any> {
