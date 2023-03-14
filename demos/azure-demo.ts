@@ -16,8 +16,7 @@ async function main() {
   const api = new AzureChatGPTAPI({
     apiKey: process.env.AZURE_OPENAI_API_KEY,
     apiBaseUrl: process.env.AZURE_OPENAI_API_BASE,
-    debug: false
-  })
+    debug: false},'chatgpt')
 
   const prompt = 'can you understand "this" pointer'
 
