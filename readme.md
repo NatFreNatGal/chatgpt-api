@@ -10,10 +10,11 @@
 - [Install](#install)
 - [Usage](#usage)
   - [Usage - ChatGPTAPI](#usage---chatgptapi)
+  - [Usage - Azure ChatGPT API](#usage---azure-chatgpt-api)
   - [Usage - ChatGPTUnofficialProxyAPI](#usage---chatgptunofficialproxyapi)
     - [Reverse Proxy](#reverse-proxy)
     - [Access Token](#access-token)
-  - [Usage - Azure ChatGPT API](#usage---azure-chatgpt-api)
+  
 - [Docs](#docs)
 - [Demos](#demos)
 - [Projects](#projects)
@@ -359,7 +360,9 @@ Access tokens last for days.
 
 ### Usage - Azure ChatGPT API
 
-It is based on ChatGPT API, usage is the similar to ChatGPT API. To start, it needs one additial parameter, deployModel, which is the deployment name of your Azure ChatGPT model.
+It is based on ChatGPT API, usage is almost the same. 
+
+To start, it needs one additial parameter, deployModel, which is the deployment name of your Azure ChatGPT model.
 
 ```ts
 async function main() {
