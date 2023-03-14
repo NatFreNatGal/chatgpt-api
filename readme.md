@@ -359,7 +359,7 @@ Access tokens last for days.
 
 ### Usage - Azure ChatGPT API
 
-It is based on ChatGPT API, need one additial parameter, deployModel, which is the deployment name of your Azure ChatGPT model.
+It is based on ChatGPT API, usage is the similar to ChatGPT API. To start, it needs one additial parameter, deployModel, which is the deployment name of your Azure ChatGPT model.
 
 ```ts
 async function main() {
