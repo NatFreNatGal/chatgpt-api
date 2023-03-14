@@ -13,7 +13,7 @@
   - [Usage - ChatGPTUnofficialProxyAPI](#usage---chatgptunofficialproxyapi)
     - [Reverse Proxy](#reverse-proxy)
     - [Access Token](#access-token)
-  - [Usage - Azure ChatGPT API](#usage---azurechatgptapi)
+  - [Usage - Azure ChatGPT API](#usage---azure-chatgpt-api)
 - [Docs](#docs)
 - [Demos](#demos)
 - [Projects](#projects)
