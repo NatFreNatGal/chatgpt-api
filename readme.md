@@ -13,6 +13,7 @@
   - [Usage - ChatGPTUnofficialProxyAPI](#usage---chatgptunofficialproxyapi)
     - [Reverse Proxy](#reverse-proxy)
     - [Access Token](#access-token)
+  - [Usage - Azure ChatGPT API](#usage---azurechatgptapi)
 - [Docs](#docs)
 - [Demos](#demos)
 - [Projects](#projects)
@@ -355,6 +356,26 @@ Alternatively, you can manually get an `accessToken` by logging in to the ChatGP
 Access tokens last for days.
 
 **Note**: using a reverse proxy will expose your access token to a third-party. There shouldn't be any adverse effects possible from this, but please consider the risks before using this method.
+
+### Usage - Azure ChatGPT API
+
+It is based on ChatGPT API, need one additial parameter, deployModel, which is the deployment name of your Azure ChatGPT model.
+
+```ts
+async function main() {
+  const api = new AzureChatGPTAPI({
+    apiKey: process.env.AZURE_OPENAI_API_KEY,
+    apiBaseUrl: process.env.AZURE_OPENAI_API_BASE,
+    debug: false},'chatgpt')
+
+  const prompt = 'can you understand "this" pointer'
+
+  const res = await oraPromise(api.sendMessage(prompt), {
+    text: prompt
+  })
+  console.log(res.text)
+}
+```
 
 ## Docs
 
