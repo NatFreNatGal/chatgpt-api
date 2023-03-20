@@ -1,6 +1,6 @@
 {
   "name": "@freistli/azurechatgptapi",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Azure ChatGPT Wrapper Demo based on Travis Fischer <travis@transitivebullsh.it> 's work on ChatGPTAPI",
   "author": "fauna179@hotmail.com",
   "repository": {
