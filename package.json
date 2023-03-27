@@ -1,6 +1,6 @@
 {
   "name": "@freistli/azurechatgptapi",
-  "version": "0.0.5",
+  "version": "0.0.9",
   "description": "Azure ChatGPT Wrapper Demo based on Travis Fischer <travis@transitivebullsh.it> 's work on ChatGPTAPI",
   "author": "fauna179@hotmail.com",
   "repository": {
@@ -50,6 +50,7 @@
     "p-timeout": "^6.1.1",
     "quick-lru": "^6.1.1",
     "read-pkg-up": "^9.1.0",
+    "redis": "^4.6.5",
     "uuid": "^9.0.0"
   },
   "devDependencies": {
