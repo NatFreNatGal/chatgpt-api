@@ -173,7 +173,7 @@ async function keyvAzureRedisTest() {
 
   return 'Done'
 }
-if (process.env.USE_CACHE?.toLowerCase() === 'azureredis') {
+if (process.env.USE_CACHE?.toLowerCase() === 'azureredistest') {
   keyvAzureRedisTest()
     .then((result) => console.log(result))
     .catch((ex) => console.log(ex))
