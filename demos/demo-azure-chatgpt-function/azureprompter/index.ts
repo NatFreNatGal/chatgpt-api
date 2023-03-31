@@ -141,7 +141,10 @@ const httpTrigger: AzureFunction = async function (
         body: ClassHelper.getMethodNames(prompt)
       }
     } else {
-      let result = await prompt[name](message, messageId)
+      let result: any = null
+
+      if (name) result = await prompt[name](message, messageId)
+      else result = await MyOpenAI.Instance().callOpenAI(message, messageId)
 
       console.log(result.text)
       context.res = {
