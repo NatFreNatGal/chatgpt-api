@@ -2,14 +2,18 @@ This is Azure funciton to call Azure OpenAI ChatGPT service through a scoped pac
 
 To use it:
 
-1. Please set two environments variables:
+1. Deploy the Turbo model with "chatgpt" or other deployment names in Azure OpenAI service.
 
-    AZURE_OPENAI_API_KEY 
+2. Please set three environments variables:
 
-    AZURE_OPENAI_API_BASE 
+```
+    AZURE_OPENAI_API_KEY
+    AZURE_OPENAI_API_BASE
+    CHATGPT_DEPLOY_NAME
+```
 
-2. Intstall packages:
+3. Intstall packages:
 
     npm install 
 
-3. Deploy the Turbo model with "chatgpt" deployment name in Azure OpenAI service.
+
