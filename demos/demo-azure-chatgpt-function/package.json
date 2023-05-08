@@ -16,7 +16,7 @@
     "@types/node": "^16.x",
     "@types/uuid": "^9.0.0",
     "@freistli/azurechatgptapi":"0.1.0",
-    "@freistli/azure-chatgpt-prompts": "0.0.6",
+    "@freistli/azure-chatgpt-prompts": "0.0.8",
     "eventsource-parser": "^0.0.5",
     "gpt-3-encoder": "^1.1.4",
     "keyv": "^4.5.2",
