@@ -55,7 +55,7 @@ class MyOpenAI {
     }
 
     console.log('Initializing ChatGPTAPI instanace')
-    this.api = new AzureChatGPTAPI(
+    this.api = new AzureChatGPTAPIv2(
       {
         apiKey: process.env.AZURE_OPENAI_API_KEY,
         apiBaseUrl: process.env.AZURE_OPENAI_API_BASE,

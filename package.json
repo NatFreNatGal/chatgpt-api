@@ -1,11 +1,11 @@
 {
-  "name": "@freistli/azurechatgptapi",
-  "version": "0.1.0",
-  "description": "Azure ChatGPT Wrapper Demo based on Travis Fischer <travis@transitivebullsh.it> 's work on ChatGPTAPI",
-  "author": "fauna179@hotmail.com",
+  "name": "v2",
+  "version": "0.1.1",
+  "description": "NG Chat GPT API",
+  "author": "nathaniel.french@nationalgallery.org.uk",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/freistli/chatgpt-api.git"
+    "url": "git+https://github.com/NatFreNatGal/chatgpt-api.git"
   },
   "license": "MIT",
   "type": "module",
@@ -60,7 +60,7 @@
     "@types/uuid": "^9.0.1",
     "del-cli": "^5.0.0",
     "dotenv-safe": "^8.2.0",
-    "husky": "^8.0.2",
+    "husky": "^8.0.3",
     "lint-staged": "^13.1.2",
     "npm-run-all": "^4.1.5",
     "ora": "^6.1.2",
