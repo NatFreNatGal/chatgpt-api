@@ -1,7 +1,7 @@
 import pTimeout from 'p-timeout'
 import { v4 as uuidv4 } from 'uuid'
 
-import * as types from './types'
+import * as types from './types-old'
 import { fetch as globalFetch } from './fetch'
 import { fetchSSE } from './fetch-sse'
 import { isValidUUIDv4 } from './utils'

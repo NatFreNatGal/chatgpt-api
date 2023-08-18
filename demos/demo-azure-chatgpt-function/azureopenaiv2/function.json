@@ -16,5 +16,5 @@
       "name": "res"
     }
   ],
-  "scriptFile": "../dist/azureopenai/index.js"
+  "scriptFile": "../dist/azureopenaiv2/index.js"
 }

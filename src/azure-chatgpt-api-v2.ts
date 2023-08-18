@@ -17,12 +17,12 @@ export class AzureChatGPTAPIv2 {
   protected _apiKey: string
   protected _apiBaseUrl: string
   protected _debug: boolean
-
   protected _systemMessage: string
   protected _completionParams: Omit<
     types.openai.CreateChatCompletionRequest,
     'messages' | 'n'
   >
+
   protected _maxModelTokens: number
   protected _maxResponseTokens: number
   protected _fetch: types.FetchFn
@@ -82,8 +82,7 @@ export class AzureChatGPTAPIv2 {
     this._systemMessage = systemMessage
 
     if (this._systemMessage === undefined) {
-      const currentDate = new Date().toISOString().split('T')[0]
-      this._systemMessage = `You are ChatGPT, a large language model trained by OpenAI. Answer as concisely as possible.\nKnowledge cutoff: 2021-09-01\nCurrent date: ${currentDate}`
+      this._systemMessage = `No one has set your systemMessage value. You should let them know they need to do that!`
     }
 
     this._maxModelTokens = maxModelTokens
@@ -159,12 +158,27 @@ export class AzureChatGPTAPIv2 {
       parentMessageId,
       text
     }
+    
     await this._upsertMessage(message)
 
-    const { messages, maxTokens, numTokens } = await this._buildMessages(
+    const {messages, maxTokens, numTokens} = await this._buildMessages(
       text,
       opts
     )
+
+    const dataSources: types.dataSources[] = [
+        {
+            "type": "AzureCognitiveSearch",
+            "parameters": {
+                "endpoint": "https://ngteamsbot-cogsearch.search.windows.net",
+                "key": "tkk2UncGDNWfdnK3rOJGzagD1vEk3RnNGgUVKjY9vjAzSeCK3ilk",
+                "indexName": "openai",
+                "inScope": false,
+                "roleInformation": this._systemMessage
+            }
+        }
+    ]
+    ;
 
     const result: types.ChatMessage = {
       role: 'assistant',
@@ -175,7 +189,7 @@ export class AzureChatGPTAPIv2 {
 
     const responseP = new Promise<types.ChatMessage>(
       async (resolve, reject) => {
-        const url = `${this._apiBaseUrl}openai/deployments/${this._deployModel}/completions?api-version=2022-12-01`
+        const url = `${this._apiBaseUrl}openai/deployments/${this._deployModel}/extensions/chat/completions?api-version=2023-08-01-preview`
 
         console.log(`\r\n ${url}`)
 
@@ -197,6 +211,7 @@ export class AzureChatGPTAPIv2 {
         const body = {
           max_tokens: maxTokens,
           ...this._completionParams,
+          dataSources,
           messages,
           stream
         }
@@ -249,24 +264,27 @@ export class AzureChatGPTAPIv2 {
           ).catch(reject)
         } else {
           try {
-            console.log(JSON.stringify(body))
+           // console.log(JSON.stringify(body))
 
-            let prompts: string = ''
+           // let prompts: string = ''
 
-            body.messages.forEach((e) => {
-              prompts = `${prompts}\n<|im_start|>${e.role}\n${e.content}\n<|im_end|>`
-            })
+           // body.messages.forEach((e) => {
+           //   prompts = `${prompts}\n<|im_start|>${e.role}\n${e.content}\n<|im_end|>`
+           // })
 
-            prompts = `${prompts}\n<|im_start|>assistant\n`
+           // prompts = `${prompts}\n<|im_start|>assistant\n`
 
-            console.log(JSON.stringify(prompts))
-
+           // console.log(JSON.stringify(prompts))
+            
             const azureBody = {
               max_tokens: maxTokens,
               ...this._completionParams,
-              prompt: prompts,
+              dataSources,
+              messages,
               stream
             }
+
+            console.log(JSON.stringify(azureBody))
 
             const res = await this._fetch(url, {
               method: 'POST',
@@ -274,6 +292,8 @@ export class AzureChatGPTAPIv2 {
               body: JSON.stringify(azureBody),
               signal: abortSignal
             })
+
+            console.log(JSON.stringify(res))
 
             if (!res.ok) {
               const reason = await res.text()
@@ -350,7 +370,7 @@ export class AzureChatGPTAPIv2 {
   }
 
   protected async _buildMessages(text: string, opts: types.SendMessageOptions) {
-    const { systemMessage = this._systemMessage } = opts
+    const  systemMessage = this._systemMessage //} = opts
     let { parentMessageId } = opts
 
     const userLabel = USER_LABEL_DEFAULT
@@ -359,12 +379,12 @@ export class AzureChatGPTAPIv2 {
     const maxNumTokens = this._maxModelTokens - this._maxResponseTokens
     let messages: types.openai.ChatCompletionRequestMessage[] = []
 
-    if (systemMessage) {
+
       messages.push({
-        role: 'system',
+        role: 'user',
         content: systemMessage
       })
-    }
+
 
     const systemMessageOffset = messages.length
     let nextMessages = text
@@ -436,7 +456,7 @@ export class AzureChatGPTAPIv2 {
       Math.min(this._maxModelTokens - numTokens, this._maxResponseTokens)
     )
 
-    return { messages, maxTokens, numTokens }
+    return { messages, maxTokens, numTokens}
   }
 
   protected async _getTokenCount(text: string) {

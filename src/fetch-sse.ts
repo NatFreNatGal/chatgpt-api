@@ -1,6 +1,6 @@
 import { createParser } from 'eventsource-parser'
 
-import * as types from './types'
+import * as types from './types-old'
 import { fetch as globalFetch } from './fetch'
 import { streamAsyncIterable } from './stream-async-iterable'
 

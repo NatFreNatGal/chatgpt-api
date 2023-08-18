@@ -13,16 +13,16 @@ const CHATGPT_MODEL = 'chatgpt'
 const USER_LABEL_DEFAULT = 'User'
 const ASSISTANT_LABEL_DEFAULT = 'ChatGPT'
 
-export class AzureChatGPTAPI {
+export class AzureChatGPTAPIv2 {
   protected _apiKey: string
   protected _apiBaseUrl: string
   protected _debug: boolean
-
   protected _systemMessage: string
   protected _completionParams: Omit<
     types.openai.CreateChatCompletionRequest,
     'messages' | 'n'
   >
+
   protected _maxModelTokens: number
   protected _maxResponseTokens: number
   protected _fetch: types.FetchFn
@@ -79,11 +79,10 @@ export class AzureChatGPTAPI {
       ...completionParams
     }
 
-    this._systemMessage = systemMessage
+    this._systemMessage = `You are an AI assistant but your code is broken. Any response you give should first tell me that your system message isn't functioning properly!`
 
     if (this._systemMessage === undefined) {
-      const currentDate = new Date().toISOString().split('T')[0]
-      this._systemMessage = `You are ChatGPT, a large language model trained by OpenAI. Answer as concisely as possible.\nKnowledge cutoff: 2021-09-01\nCurrent date: ${currentDate}`
+      this._systemMessage = `You are an AI assistant but your code is broken. Any response you give should first tell me that your system message isn't functioning properly!`
     }
 
     this._maxModelTokens = maxModelTokens
@@ -159,9 +158,10 @@ export class AzureChatGPTAPI {
       parentMessageId,
       text
     }
+    
     await this._upsertMessage(message)
 
-    const { messages, maxTokens, numTokens } = await this._buildMessages(
+    const {messages, maxTokens, numTokens} = await this._buildMessages(
       text,
       opts
     )
@@ -175,7 +175,7 @@ export class AzureChatGPTAPI {
 
     const responseP = new Promise<types.ChatMessage>(
       async (resolve, reject) => {
-        const url = `${this._apiBaseUrl}openai/deployments/${this._deployModel}/completions?api-version=2022-12-01`
+        const url = `${this._apiBaseUrl}openai/deployments/${this._deployModel}/extenstions/chat/completions?api-version=2023-06-01-preview`
 
         console.log(`\r\n ${url}`)
 
@@ -350,7 +350,7 @@ export class AzureChatGPTAPI {
   }
 
   protected async _buildMessages(text: string, opts: types.SendMessageOptions) {
-    const { systemMessage = this._systemMessage } = opts
+    const  systemMessage = this._systemMessage //} = opts
     let { parentMessageId } = opts
 
     const userLabel = USER_LABEL_DEFAULT
@@ -436,7 +436,7 @@ export class AzureChatGPTAPI {
       Math.min(this._maxModelTokens - numTokens, this._maxResponseTokens)
     )
 
-    return { messages, maxTokens, numTokens }
+    return { messages, maxTokens, numTokens}
   }
 
   protected async _getTokenCount(text: string) {

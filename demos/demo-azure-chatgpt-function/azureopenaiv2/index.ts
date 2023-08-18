@@ -1,9 +1,11 @@
 import { AzureFunction, Context, HttpRequest } from '@azure/functions'
 import {
-  AzureChatGPTAPI,
   AzureRedisAdapter,
   ChatMessage
 } from '@freistli/azurechatgptapi'
+import{
+  AzureChatGPTAPIv2
+} from 'apiv2'
 import Keyv from 'keyv'
 import { oraPromise } from 'ora'
 
@@ -57,8 +59,8 @@ class MyOpenAI {
     console.log('Initializing ChatGPTAPI instanace')
     this.api = new AzureChatGPTAPIv2(
       {
-        apiKey: process.env.AZURE_OPENAI_API_KEY,
-        apiBaseUrl: process.env.AZURE_OPENAI_API_BASE,
+        apiKey: '06449094d2a94d7d813879c0febf488d', //process.env.AZURE_OPENAI_API_KEY,
+        apiBaseUrl: 'https://ng-openai.openai.azure.com/', //process.env.AZURE_OPENAI_API_BASE,
         messageStore: this.azureRedisStore,
         systemMessage: process.env.SYSTEM_MESSAGE,
         debug: false

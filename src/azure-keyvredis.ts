@@ -3,7 +3,7 @@ import EventEmitter from 'events'
 import Keyv from 'keyv'
 import redis, { RedisClientType, SetOptions } from 'redis'
 
-import * as types from './types'
+import * as types from './types-old'
 
 export class AzureRedisAdapter extends EventEmitter {
   private redis: RedisClientType

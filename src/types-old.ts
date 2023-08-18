@@ -1,6 +1,6 @@
 import Keyv from 'keyv'
 
-export type Role = 'user' | 'assistant' | 'system' 
+export type Role = 'user' | 'assistant' | 'system'
 
 //export type dataSource = {
 //
@@ -81,8 +81,6 @@ export interface dataSources {
     endpoint: string;
     key: string;
     indexName: string;
-    inScope: boolean;
-    roleInformation: string
   }
 }
 
