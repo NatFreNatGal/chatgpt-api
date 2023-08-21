@@ -23,6 +23,10 @@ export class AzureChatGPTAPIv2 {
     'messages' | 'n'
   >
 
+  protected _indexName: string
+  protected _endpoint: string
+  protected _key: string
+
   protected _maxModelTokens: number
   protected _maxResponseTokens: number
   protected _fetch: types.FetchFn
@@ -55,6 +59,9 @@ export class AzureChatGPTAPIv2 {
       apiBaseUrl,
       debug = false,
       messageStore,
+      ACSindexName,
+      ACSendpoint,
+      ACSkey,
       completionParams,
       systemMessage,
       maxModelTokens = 4000,
@@ -80,9 +87,27 @@ export class AzureChatGPTAPIv2 {
     }
 
     this._systemMessage = systemMessage
-
+    
     if (this._systemMessage === undefined) {
       this._systemMessage = `No one has set your systemMessage value. You should let them know they need to do that!`
+    }
+
+    this._indexName = ACSindexName
+    
+    if (this._indexName === undefined) {
+      this._indexName = `openai-test`
+    }
+
+    this._endpoint = ACSendpoint
+    
+    if (this._endpoint === undefined) {
+      this._endpoint = `https://ngteamsbot-cogsearch.search.windows.net`
+    }
+
+    this._key = ACSkey
+    
+    if (this._key === undefined) {
+      this._key = `tkk2UncGDNWfdnK3rOJGzagD1vEk3RnNGgUVKjY9vjAzSeCK3ilk`
     }
 
     this._maxModelTokens = maxModelTokens
@@ -113,25 +138,21 @@ export class AzureChatGPTAPIv2 {
   }
 
   /**
-   * Sends a message to the OpenAI chat completions endpoint, waits for the response
-   * to resolve, and returns the response.
+   * Creates a new client wrapper around Azure OpenAI's chat completion API, mimicing the official ChatGPT webapp's functionality as closely as possible.
    *
-   * If you want your response to have historical context, you must provide a valid `parentMessageId`.
-   *
-   * If you want to receive a stream of partial responses, use `opts.onProgress`.
-   *
-   * Set `debug: true` in the `ChatGPTAPI` constructor to log more info on the full prompt sent to the OpenAI chat completions API. You can override the `systemMessage` in `opts` to customize the assistant's instructions.
-   *
-   * @param message - The prompt message to send
-   * @param opts.parentMessageId - Optional ID of the previous message in the conversation (defaults to `undefined`)
-   * @param opts.messageId - Optional ID of the message to send (defaults to a random UUID)
-   * @param opts.systemMessage - Optional override for the chat "system message" which acts as instructions to the model (defaults to the ChatGPT system message)
-   * @param opts.timeoutMs - Optional timeout in milliseconds (defaults to no timeout)
-   * @param opts.onProgress - Optional callback which will be invoked every time the partial response is updated
-   * @param opts.abortSignal - Optional callback used to abort the underlying `fetch` call using an [AbortController](https://developer.mozilla.org/en-US/docs/Web/API/AbortController)
-   *
-   * @returns The response from ChatGPT
+   * @param apiKey - Azure OpenAI API key (required).
+   * @param apiBaseUrl - Azure OpenAI API base URL (required).
+   * @param debug - Optional enables logging debugging info to stdout.
+   * @param completionParams - Param overrides to send to the [OpenAI chat completion API](https://platform.openai.com/docs/api-reference/chat/create). Options like `temperature` and `presence_penalty` can be tweaked to change the personality of the assistant.
+   * @param maxModelTokens - Optional override for the maximum number of tokens allowed by the model's context. Defaults to 4096.
+   * @param maxResponseTokens - Optional override for the minimum number of tokens allowed for the model's response. Defaults to 1000.
+   * @param messageStore - Optional [Keyv](https://github.com/jaredwray/keyv) store to persist chat messages to. If not provided, messages will be lost when the process exits.
+   * @param getMessageById - Optional function to retrieve a message by its ID. If not provided, the default implementation will be used (using an in-memory `messageStore`).
+   * @param upsertMessage - Optional function to insert or update a message. If not provided, the default implementation will be used (using an in-memory `messageStore`).
+   * @param fetch - Optional override for the `fetch` implementation to use. Defaults to the global `fetch` function.
+   * @param deployModel - required for Azure Open AI
    */
+
   async sendMessage(
     text: string,
     opts: types.SendMessageOptions = {}
@@ -170,9 +191,9 @@ export class AzureChatGPTAPIv2 {
         {
             "type": "AzureCognitiveSearch",
             "parameters": {
-                "endpoint": "https://ngteamsbot-cogsearch.search.windows.net",
-                "key": "tkk2UncGDNWfdnK3rOJGzagD1vEk3RnNGgUVKjY9vjAzSeCK3ilk",
-                "indexName": "openai",
+                "endpoint": this._endpoint,
+                "key": this._key,
+                "indexName": this._indexName,
                 "inScope": false,
                 "roleInformation": this._systemMessage
             }
