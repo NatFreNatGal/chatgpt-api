@@ -30,6 +30,12 @@ export type ChatGPTAPIOptions = {
   upsertMessage?: UpsertMessageFunction
 
   fetch?: FetchFn
+
+  ACSindexName: string
+
+  ACSendpoint: string
+
+  ACSkey: string
 }
 
 export type SendMessageOptions = {
